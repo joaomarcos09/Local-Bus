@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "401621200864",
+    "firebase_url": "https://localbus-c16b3.firebaseio.com",
+    "project_id": "localbus-c16b3",
+    "storage_bucket": "localbus-c16b3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401621200864:android:4c52fdf0fb7cfba4928585",
+        "android_client_info": {
+          "package_name": "br.ufc.crateus.localbus"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401621200864-snnddbpndi70ts5967k1ossanl28h301.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.ufc.crateus.localbus",
+            "certificate_hash": "56187054ed1a9241bd719f89c80f0a0b4d4f6e93"
+          }
+        },
+        {
+          "client_id": "401621200864-r9nvf9df7od8otpgp1tqquam8fholgtv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_mPfi490Ixdf6OH7yF3ctu-ngASQGOjo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401621200864-r9nvf9df7od8otpgp1tqquam8fholgtv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
