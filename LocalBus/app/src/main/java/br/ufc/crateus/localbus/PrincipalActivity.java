@@ -1,5 +1,6 @@
 package br.ufc.crateus.localbus;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -23,6 +24,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import static br.ufc.crateus.localbus.R.id.tvEmailUsu;
 
 public class PrincipalActivity extends AppCompatActivity
 
@@ -30,6 +34,7 @@ public class PrincipalActivity extends AppCompatActivity
     TextView tvNomeUsu;
     TextView tvEmailUsu;
     UserModel usuario = new UserModel();
+    Bundle dados = new Bundle();
     String nomeUsu;
     String emailUsu;
 
@@ -42,23 +47,26 @@ public class PrincipalActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
-        tvNomeUsu = (TextView) findViewById(R.id.tvNomeUsu);
-        tvEmailUsu = (TextView) findViewById(R.id.tvEmailUsu);
+
         Intent intent = getIntent();
 
-        Bundle dados = intent.getExtras();
+        dados = intent.getExtras();
 
-        nomeUsu = dados.getString("nome").toString();
-        emailUsu = dados.getString("email").toString();
-        Log.i("nome do usuario", nomeUsu);
+        if(dados != null) {
 
-       // tvNomeUsu.setText(nomeUsu);
-        //tvEmailUsu.setText(emailUsu);
+
+
+        nomeUsu = dados.getString("nome");
+        emailUsu = dados.getString("email");
+            Toast.makeText(PrincipalActivity.this, emailUsu, Toast.LENGTH_SHORT).show();
+            Log.i("nome do usuario", nomeUsu);
+        }
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(PrincipalActivity.this, BatePapoActivity.class);
+                i.putExtras(dados);
                 startActivity(i);
             }
         });
@@ -84,6 +92,10 @@ public class PrincipalActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        tvNomeUsu = (TextView) findViewById(R.id.tvNomeUsu);
+        tvEmailUsu = (TextView) findViewById(R.id.tvEmailUsu);
+        tvNomeUsu.setText(nomeUsu);
+        tvEmailUsu.setText(emailUsu);
         getMenuInflater().inflate(R.menu.principal, menu);
         return true;
     }
@@ -111,10 +123,11 @@ public class PrincipalActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            Intent mapa = new Intent(PrincipalActivity.this, MapsActivity.class);
+            Intent mapa = new Intent(PrincipalActivity.this, MapsActivity2.class);
             startActivity(mapa);
         } else if (id == R.id.nav_gallery) {
             Intent dados = new Intent(PrincipalActivity.this, DadosActivity.class);
+            dados.putExtras(dados);
             startActivity(dados);
         }
 
