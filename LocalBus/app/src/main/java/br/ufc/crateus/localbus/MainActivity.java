@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     EditText etSenha;
     UserModel usuario;
     UserModel userAux;
-    TextView tvMsgCadastro;
     Bundle dados = new Bundle();
     DatabaseReference myRef;
     Iterable<DataSnapshot> children;
@@ -52,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
         etSenha = (EditText) findViewById(R.id.etSenha);
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://localbus-5f2fa.firebaseio.com/");
         myRef = database.getReference("users");
-
-
         btEntrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

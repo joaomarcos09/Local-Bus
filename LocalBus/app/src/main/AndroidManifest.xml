@@ -33,7 +33,8 @@
         <activity
             android:name=".MapsActivity2"
             android:label="@string/title_activity_maps2"></activity>
-        <activity android:name=".BatePapoActivity" />
+        <activity android:name=".BatePapoActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".DadosActivity" />
         <activity
             android:name=".MapsActivity"
@@ -43,7 +44,8 @@
             android:name=".PrincipalActivity"
             android:label="@string/title_activity_principal"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".CadastroActivity" />
+        <activity android:name=".CadastroActivity"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
