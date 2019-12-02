@@ -21,8 +21,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,9 @@ public class PrincipalActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     TextView tvNomeUsu;
     TextView tvEmailUsu;
+    TextView tvNoti;
+    Button btLocalizacao;
+    RecyclerView rcNoticacoes;
     UserModel usuario = new UserModel();
     Bundle dados = new Bundle();
     String nomeUsu;
@@ -47,17 +52,18 @@ public class PrincipalActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
+        btLocalizacao = (Button) findViewById(R.id.btLocalizacao);
+        tvNoti = (TextView) findViewById(R.id.tvNoti);
+        rcNoticacoes = (RecyclerView) findViewById(R.id.rcNotificacoes);
 
         Intent intent = getIntent();
 
         dados = intent.getExtras();
 
+
         if(dados != null) {
-
-
-
-        nomeUsu = dados.getString("nome");
-        emailUsu = dados.getString("email");
+         nomeUsu = dados.getString("nome");
+         emailUsu = dados.getString("email");
             Toast.makeText(PrincipalActivity.this, emailUsu, Toast.LENGTH_SHORT).show();
             Log.i("nome do usuario", nomeUsu);
         }
@@ -125,12 +131,11 @@ public class PrincipalActivity extends AppCompatActivity
         if (id == R.id.nav_home) {
             Intent mapa = new Intent(PrincipalActivity.this, MapsActivity2.class);
             startActivity(mapa);
-        } else if (id == R.id.nav_gallery) {
+        }/* else if (id == R.id.nav_gallery) {
             Intent dados = new Intent(PrincipalActivity.this, DadosActivity.class);
             dados.putExtras(dados);
             startActivity(dados);
-        }
-
+        }*/
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

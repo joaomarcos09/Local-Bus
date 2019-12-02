@@ -77,5 +77,7 @@ public class LineAdapter extends RecyclerView.Adapter<LineHolder> {
             }
         });
     }
-
+public int size(){
+        return mMsg.size();
+}
 }

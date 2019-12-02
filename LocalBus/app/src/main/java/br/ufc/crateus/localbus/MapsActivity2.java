@@ -8,6 +8,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -38,11 +39,43 @@ public class MapsActivity2 extends FragmentActivity implements OnMapReadyCallbac
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMaxZoomPreference(18);
+        mMap.setMaxZoomPreference(25);
         mMap.setMinZoomPreference(15);
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng local = new LatLng(-5.1864371,-40.6452647);
+        mMap.addMarker(new MarkerOptions().position(local).title("UFC - Campus Crateus"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(local));
+
+        LatLng ufc = new LatLng(-5.1864371,-40.6452647);
+        mMap.addMarker(new MarkerOptions().position(ufc).title("UFC - Campus Crateus"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(ufc));
+        LatLng romeu = new LatLng(-5.181988,-40.6653437);
+        mMap.addMarker(new MarkerOptions().position(romeu).title("Rodoviaria dos pobres"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(romeu));
+        LatLng pirulitos = new LatLng(-5.1774467,-40.6660563);
+        mMap.addMarker(new MarkerOptions().position(pirulitos).title("Praça dos Pirulitos"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(pirulitos));
+        LatLng matriz = new LatLng(-5.1743159,-40.669232);
+        mMap.addMarker(new MarkerOptions().position(matriz).title("Praça da Matriz"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(matriz));
+        LatLng sollo = new LatLng(-5.1896176,-40.6766762);
+        mMap.addMarker(new MarkerOptions().position(sollo).title("Posto Sollo"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(sollo));
+        LatLng amicao = new LatLng(-5.182212,-40.6715795);
+        mMap.addMarker(new MarkerOptions().position(amicao).title("Amicão"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(amicao));
     }
+    /*
+    private void setMarker(LatLng local) {
+        if (marker == null) {
+            marker = mMap.addMarker(new MarkerOptions()
+                    .position(local)
+                    .title("Meu")
+                    .icon(BitmapDescriptorFactory. defaultMarker(BitmapDescriptorFactory
+                            .HUE_AZURE)));
+        } else {
+            marker.setPosition(local);
+        }
+        mMap.moveCamera(CameraUpdateFactory. newLatLng(local));
+    }*/
 }

@@ -30,6 +30,8 @@ public class BatePapoActivity extends AppCompatActivity {
     Button btEnviarMsg;
     MensagemModel msgAux;
     DatabaseReference myRef;
+    int marcador = 0;
+    int cont = 1;
     private  ArrayList<MensagemModel> mMsgAux = new ArrayList<>();
     Iterable<DataSnapshot> children;
     RecyclerView recyclerView;
@@ -51,22 +53,6 @@ public class BatePapoActivity extends AppCompatActivity {
         myRef = database.getReference("mensagens");
        // mAdapter.pegaMensagens();
 
-        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                children = dataSnapshot.getChildren();
-                for (DataSnapshot data : children) {
-                    msgAux = data.getValue(MensagemModel.class);
-                    Log.i("pegou", msgAux.getMensagem());
-                    mAdapter.insertItem(msgAux);
-                    //mMsgAux.add(msgAux);
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.i("emailT", "veio pra ca");
-            }
-        });
 
         Intent intent = getIntent();
 
@@ -85,6 +71,51 @@ public class BatePapoActivity extends AppCompatActivity {
                 etMsg.setText("");
             }
         });
+       //while(true) {
+
+        new Thread(new Runnable() {
+            int size = mAdapter.size();
+            public void run(){
+                while(true) {
+                    myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            children = dataSnapshot.getChildren();
+                            if(cont != marcador){
+                            for (DataSnapshot data : children) {
+                                msgAux = data.getValue(MensagemModel.class);
+                                Log.i("pegou", msgAux.getMensagem());
+                                //mAdapter.insertItem(msgAux);
+                                marcador++;
+                                mMsgAux.add(msgAux);
+                            }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Log.i("emailT", "veio pra ca");
+                        }
+                    });
+                    if(mAdapter.size() != mMsgAux.size()){
+                        for(int i = 0; i<mMsgAux.size(); i++){
+                            mAdapter.insertItem(mMsgAux.get(i));
+                        }
+                    }
+                    try {
+                        Thread. sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
+        //   try {
+        //       Thread.sleep(1000);
+     //      } catch (InterruptedException e) {
+      //         e.printStackTrace();
+     //      }
+       //}
     }
 
     public void inserirMsg(){
