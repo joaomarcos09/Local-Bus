@@ -10,23 +10,33 @@ import com.google.android.material.snackbar.Snackbar;
 import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
 import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static br.ufc.crateus.localbus.R.id.tvEmailUsu;
 
@@ -42,6 +52,10 @@ public class PrincipalActivity extends AppCompatActivity
     Bundle dados = new Bundle();
     String nomeUsu;
     String emailUsu;
+    DatabaseReference myRef;
+    Iterable<DataSnapshot> children;
+    private LineAdapter mAdapter;
+    MensagemModel msgAux;
 
 
 
@@ -55,7 +69,29 @@ public class PrincipalActivity extends AppCompatActivity
         btLocalizacao = (Button) findViewById(R.id.btLocalizacao);
         tvNoti = (TextView) findViewById(R.id.tvNoti);
         rcNoticacoes = (RecyclerView) findViewById(R.id.rcNotificacoes);
+        LinearLayoutManager layoutManager = new LinearLayoutManager( this);
+        rcNoticacoes.setLayoutManager(layoutManager);
+        mAdapter = new LineAdapter(new ArrayList<>(0));
+        rcNoticacoes.setAdapter(mAdapter);
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://localbus-5f2fa.firebaseio.com/");
+        myRef = database.getReference("avisos");
+        myRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                children = dataSnapshot.getChildren();
+                for (DataSnapshot data : children) {
+                    msgAux = data.getValue(MensagemModel.class);
+                    Log.i("pegou", msgAux.getMensagem());
+                    mAdapter.insertItem(msgAux);
+                    //mMsgAux.add(msgAux);
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.i("emailT", "veio pra ca");
+            }
+        });
         Intent intent = getIntent();
 
         dados = intent.getExtras();
@@ -116,6 +152,7 @@ public class PrincipalActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             Intent i = new Intent(PrincipalActivity.this, ConfiguracoesActivity.class);
+            i.putExtras(dados);
             startActivity(i);
         }
 

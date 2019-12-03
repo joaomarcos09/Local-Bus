@@ -3,6 +3,7 @@ package br.ufc.crateus.localbus;
 import android.text.Editable;
 
 public class UserModel {
+    private String key;
     private String email;
     private String nome;
     private Integer matricula;
@@ -28,6 +29,13 @@ public class UserModel {
         this.matricula = matricula;
     }
 
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public String getEmail() {
         return email;

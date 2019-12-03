@@ -61,12 +61,21 @@ public class MainActivity extends AppCompatActivity {
                         for (DataSnapshot data : children) {
                             Log.i("User", data.getKey() + " " + data.getValue(UserModel.class));
                             userAux = data.getValue(UserModel.class);
+                            userAux.setKey(data.getKey());
                             Log.i("emailT", etEmail.getText().toString());
                             Log.i("senhaT", etSenha.getText().toString());
+                            if(etEmail.getText().toString().equals("motorista") && etSenha.getText().toString().equals("motorista")){
+                                Intent motorista = new Intent(MainActivity.this, MotoristaActivity.class);
+                                startActivity(motorista);
+                            }
                             if (etEmail.getText().toString().equals(userAux.getEmail()) && etSenha.getText().toString().equals(userAux.getSenha())) {
                                 usuario = userAux;
                                 dados.putString("nome", usuario.getNome());
                                 dados.putString("email", usuario.getEmail());
+                                dados.putString("curso", usuario.getCurso());
+                                dados.putString("matricula", String.valueOf(usuario.getMatricula()));
+                                dados.putString("senha", usuario.getSenha());
+                                dados.putString("key", usuario.getKey());
                                 Log.i("email", usuario.getEmail());
                                 Log.i("senha", usuario.getSenha());
                             } else {

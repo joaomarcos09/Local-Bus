@@ -3,6 +3,7 @@ package br.ufc.crateus.localbus;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ public class ConfiguracoesActivity extends AppCompatActivity {
     Button btRemover;
     DatabaseReference myRef;
     Iterable<DataSnapshot> children;
+    Bundle dados = new Bundle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,26 @@ public class ConfiguracoesActivity extends AppCompatActivity {
         btRemover = (Button) findViewById(R.id.btRemover);
         FirebaseDatabase database = FirebaseDatabase.getInstance("https://localbus-5f2fa.firebaseio.com/");
         myRef = database.getReference("users");
+        Intent intent = getIntent();
+
+        dados = intent.getExtras();
+        btEditar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ConfiguracoesActivity.this, EditarActivity.class);
+                i.putExtras(dados);
+                startActivity(i);
+            }
+        });
+
+        btRemover.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myRef.child(dados.getString("key")).removeValue();
+                Intent i = new Intent(ConfiguracoesActivity.this, MainActivity.class);
+                startActivity(i);
+            }
+        });
         /*
         btEditar.setOnClickListener(new View.OnClickListener() {
             @Override

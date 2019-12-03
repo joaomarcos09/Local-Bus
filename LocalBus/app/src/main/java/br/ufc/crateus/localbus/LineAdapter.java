@@ -20,12 +20,14 @@ import java.util.Locale;
 
 public class LineAdapter extends RecyclerView.Adapter<LineHolder> {
     private final List<MensagemModel> mMsg;
+    private final List<String> avisos;
     DatabaseReference myRef;
     Iterable<DataSnapshot> children;
     MensagemModel msgAux;
 
     public LineAdapter(ArrayList msgs) {
         mMsg = msgs;
+        avisos = null;
     }
 
     @Override
@@ -49,6 +51,10 @@ public class LineAdapter extends RecyclerView.Adapter<LineHolder> {
 
     public void updateList(MensagemModel user) {
         insertItem(user);
+    }
+
+    public void insertAviso(String aviso){
+        avisos.add(aviso);
     }
 
     public void insertItem(MensagemModel user) {
